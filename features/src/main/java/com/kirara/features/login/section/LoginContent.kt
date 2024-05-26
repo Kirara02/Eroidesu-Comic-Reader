@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -32,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -58,6 +60,7 @@ fun LoginContent(
     val loginRequest = remember { mutableStateOf(LoginRequest()) }
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
+    val focusManager = LocalFocusManager.current
 
     loginRequest.value = LoginRequest(email = email.value, password = password.value)
 
@@ -82,19 +85,32 @@ fun LoginContent(
                 fontSize = Dimens.sp12,
                 modifier = Modifier.padding(bottom = Dimens.dp4)
             )
-            RegularField(hint = stringResource(id = R.string.email_hint), onTextChange = { email.value = it })
+            RegularField(
+                hint = stringResource(id = R.string.email_hint),
+                onTextChange = { email.value = it }
+            )
             Spacer(modifier = Modifier.height(Dimens.dp16))
             Text(
                 text = stringResource(id = R.string.password_form),
                 fontSize = Dimens.sp12,
                 modifier = Modifier.padding(bottom = Dimens.dp4)
             )
-            PasswordField(hint = stringResource(id = R.string.password_hint), onPasswordChange = { password.value = it })
+            PasswordField(
+                hint = stringResource(id = R.string.password_hint),
+                onPasswordChange = { password.value = it },
+                imeAction = ImeAction.Done,
+                keyboardActions = KeyboardActions(
+                    onDone = { focusManager.clearFocus() }
+                )
+            )
         }
         Spacer(modifier = Modifier.height(Dimens.dp24))
         Button(
             modifier = Modifier.fillMaxWidth(),
-            onClick = { onButtonActionClicked(loginRequest.value) },
+            onClick = {
+                focusManager.clearFocus()
+                onButtonActionClicked(loginRequest.value)
+            },
         ) {
             Text(stringResource(id = R.string.login))
         }

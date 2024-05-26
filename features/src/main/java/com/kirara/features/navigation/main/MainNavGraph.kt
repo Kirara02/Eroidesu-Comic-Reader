@@ -58,10 +58,7 @@ fun MainNavGraph(
                 navigateToEditProfile = {
                     navController.navigate(GeneralScreen.EditProfile.route)
                 },
-                onUserLogout = {
-                    Log.d("TAG", "Logout button clicked")
-                    onUserLogout()
-                }
+                onUserLogout =  onUserLogout
             )
         }
         composable(GeneralScreen.EditProfile.route) {

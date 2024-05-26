@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -41,6 +42,7 @@ fun PasswordField(
     keyboardType: KeyboardType = KeyboardType.Password,
     imeAction: ImeAction = ImeAction.Next,
     onPasswordChange: (String) -> Unit = {},
+    keyboardActions: KeyboardActions = KeyboardActions()
 ) {
     var password by remember { mutableStateOf(TextFieldValue()) }
     var passwordVisibility by remember { mutableStateOf(false) }
@@ -71,6 +73,7 @@ fun PasswordField(
                 keyboardType = keyboardType,
                 imeAction = imeAction
             ),
+            keyboardActions = keyboardActions,
             decorationBox = { innerTextField ->
                 if (password.text.isEmpty()) {
                     Text(

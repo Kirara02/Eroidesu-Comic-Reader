@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,6 +33,7 @@ fun RegularField(
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Next,
     onTextChange: (String) -> Unit = {},
+    keyboardActions: KeyboardActions = KeyboardActions()
 ){
     var text by remember { mutableStateOf(TextFieldValue()) }
 
@@ -61,6 +63,7 @@ fun RegularField(
                 keyboardType = keyboardType,
                 imeAction = imeAction,
             ),
+            keyboardActions = keyboardActions,
             decorationBox = { innerTextField ->
                 if (text.text.isEmpty()) {
                     Text(

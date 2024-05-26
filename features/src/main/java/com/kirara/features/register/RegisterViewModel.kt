@@ -19,22 +19,24 @@ import javax.inject.Inject
 class RegisterViewModel @Inject constructor(
     private val registerUseCase: RegisterUseCase
 ) : ViewModel() {
-    private val _uiStateRegister: MutableStateFlow<UiState<AuthResponse>> = MutableStateFlow(
-        UiState.Initial)
+    private val _uiStateRegister: MutableStateFlow<UiState<AuthResponse>> = MutableStateFlow(UiState.Initial)
     val uiStateRegister: StateFlow<UiState<AuthResponse>> get() = _uiStateRegister
 
-    fun registerApiCall(request: RegisterRequest){
+    fun registerApiCall(request: RegisterRequest) {
         _uiStateRegister.value = UiState.Loading
         viewModelScope.launch {
             try {
                 registerUseCase.execute(request)
                     .catch {
+                        it.printStackTrace()
                         _uiStateRegister.value = it.handleAppError()
                         UtilFunctions.logE("ERROR :$it")
-                    }.collect{
+                    }
+                    .collect {
                         _uiStateRegister.value = UiState.Success(it)
                     }
-            }catch (e: Exception){
+            } catch (e: Exception) {
+                e.printStackTrace()
                 UtilFunctions.logE("ERROR :$e")
                 _uiStateRegister.value = e.handleAppError()
             }
