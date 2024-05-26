@@ -1,0 +1,1 @@
+/home/kirarabernstein/Learn/Eroidesu/buildSrc/build/classes/kotlin/main/Modules.class:/home/kirarabernstein/Learn/Eroidesu/buildSrc/build/classes/kotlin/main/Versions.class:/home/kirarabernstein/Learn/Eroidesu/buildSrc/build/classes/kotlin/main/dependencies/MyDependencies.class

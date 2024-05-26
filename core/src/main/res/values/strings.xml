@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Eroidesu</string>
+    <string name="home">Home</string>
+    <string name="bookmark">Bookmark</string>
+    <string name="profile">Profile</string>
+    <string name="manga">Manga</string>
+    <string name="no_manga">No Manga List</string>
+    <string name="load_manga">Load Manga…</string>
+    <string name="error_manga">Can\'t load manga, try again.</string>
+    <string name="detail_manga">Detail Manga</string>
+    <string name="description">Description</string>
+    <string name="clear">Clear</string>
+    <string name="dash">-</string>
+    <string name="search_manga">Search Manga…</string>
+    <string name="add_to_bookmark">Add to Bookmark</string>
+    <string name="added_to_bookmark">Added to bookmark!</string>
+    <string name="remove_from_bookmark">Remove %s from bookmark.</string>
+    <string name="about_page">about_page</string>
+    <string name="greeting">Selamat datang,</string>
+    <string name="kirara">Kirara Bernstein</string>
+    <string name="profile_description">Exploring the limitless possibilities of mobile development through the power of Jetpack Compose and the Flutter Framework 🚀</string>
+    <string name="profile_web">https://github.com/Kirara02</string>
+    <string name="back">Back</string>
+    <string name="name_form">Name</string>
+    <string name="email_form">Email</string>
+    <string name="password_form">Password</string>
+    <string name="name_hint">Joshua</string>
+    <string name="email_hint">user@mail.com</string>
+    <string name="password_hint">********</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="not_have_account">Not have an account?</string>
+    <string name="already_have_account">Already have an account?</string>
+</resources>
