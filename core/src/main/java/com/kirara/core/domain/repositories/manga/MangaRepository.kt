@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
 interface MangaRepository {
     suspend fun getMangasApiCall(token: String) : Flow<MangaResponse>
     suspend fun getPopularMangasApiCall(token: String) : Flow<MangaResponse>
-    suspend fun getMangaByIdApiCall(request: GetMangaByIdRequest) : Flow<BaseResponse<Manga>>
+    suspend fun getMangaByIdApiCall(token: String, request: GetMangaByIdRequest) : Flow<BaseResponse<Manga>>
 }

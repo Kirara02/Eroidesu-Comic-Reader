@@ -29,6 +29,7 @@
     <string name="password_hint">********</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="update">Update</string>
     <string name="not_have_account">Not have an account?</string>
     <string name="already_have_account">Already have an account?</string>
 </resources>

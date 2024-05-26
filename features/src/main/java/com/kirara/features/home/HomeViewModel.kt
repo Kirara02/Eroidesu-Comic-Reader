@@ -1,7 +1,5 @@
 package com.kirara.features.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kirara.core.data.UiState
@@ -46,7 +44,7 @@ class HomeViewModel @Inject constructor(
     fun getMangasApiCall(){
         viewModelScope.launch {
             try {
-                getMangasUseCase.execute(token)
+                getMangasUseCase.executeWithToken(Unit)
                     .catch {
                         _uiStateManga.value = UiState.Error(it.message.toString())
                     }
@@ -62,7 +60,7 @@ class HomeViewModel @Inject constructor(
     fun getPopularMangasApiCall(){
         viewModelScope.launch {
             try {
-                getPopularMangasUseCase.execute(token)
+                getPopularMangasUseCase.executeWithToken(Unit)
                     .catch {
                         _uiStatePopularManga.value = UiState.Error(it.message.toString())
                     }

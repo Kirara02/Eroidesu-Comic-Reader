@@ -1,14 +1,17 @@
 package com.kirara.core.data.datasource.remote
 
 import com.google.gson.annotations.SerializedName
+import com.kirara.core.data.model.request.ChangePasswordRequest
 import com.kirara.core.data.model.request.GetMangaByIdRequest
 import com.kirara.core.data.model.request.LoginRequest
 import com.kirara.core.data.model.request.RefreshTokenRequest
 import com.kirara.core.data.model.response.Manga
 import com.kirara.core.data.model.response.MangaResponse
 import com.kirara.core.data.model.request.RegisterRequest
+import com.kirara.core.data.model.request.UpdateUserRequest
 import com.kirara.core.data.model.response.BaseResponse
 import com.kirara.core.data.model.response.AuthResponse
+import com.kirara.core.data.model.response.DefaultResponse
 import com.kirara.core.data.model.response.LoginData
 import com.kirara.core.data.model.response.User
 import retrofit2.http.Body
@@ -32,6 +35,18 @@ interface APIService {
     @GET("user")
     suspend fun getUser(@Header("Authorization") token: String) : BaseResponse<User>
 
+    @POST("user/update")
+    suspend fun updateUser(
+        @Header("Authorization") token: String,
+        @Body request: UpdateUserRequest
+    ) : BaseResponse<User>
+
+    @POST("user/change-password")
+    suspend fun changePassword(
+        @Header("Authorization") token: String,
+        @Body request: ChangePasswordRequest
+    ) : DefaultResponse
+
     @GET("manga")
     suspend fun getMangas(
         @Header("Authorization") token: String,
@@ -43,6 +58,9 @@ interface APIService {
     ): MangaResponse
 
     @GET("manga/{id}")
-    suspend fun getMangaById(request: GetMangaByIdRequest): BaseResponse<Manga>
+    suspend fun getMangaById(
+        @Header("Authorization") token: String,
+        @Body request: GetMangaByIdRequest
+    ): BaseResponse<Manga>
 
 }

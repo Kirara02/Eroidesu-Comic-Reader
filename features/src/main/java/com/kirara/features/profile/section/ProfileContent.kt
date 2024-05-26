@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Logout
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -42,6 +43,7 @@ import com.kirara.features.profile.ProfileViewModel
 fun ProfileContent(
     modifier: Modifier = Modifier,
     navigateToEditProfile: () -> Unit,
+    navigateToChangePassword: () -> Unit,
     viewModel: ProfileViewModel,
 ){
     val showDialog = remember { mutableStateOf(false) }
@@ -92,6 +94,11 @@ fun ProfileContent(
                 icon = painterResource(id = R.drawable.edit_user),
                 title = "Edit Profile",
                 onClickAction = { navigateToEditProfile() }
+            )
+            ProfileItem(
+                icon = Icons.Rounded.Lock,
+                title = "Change Password",
+                onClickAction = { navigateToChangePassword() }
             )
             ProfileItem(
                 icon = Icons.Rounded.Logout,

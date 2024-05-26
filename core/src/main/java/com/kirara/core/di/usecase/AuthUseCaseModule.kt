@@ -5,6 +5,7 @@ import com.kirara.core.domain.usecase.auth.LoginUseCase
 import com.kirara.core.domain.usecase.auth.LogoutUseCase
 import com.kirara.core.domain.usecase.auth.RefreshTokenUseCase
 import com.kirara.core.domain.usecase.auth.RegisterUseCase
+import com.kirara.core.util.SharedPreferencesHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,23 +16,23 @@ import dagger.hilt.android.components.ViewModelComponent
 object AuthUseCaseModule {
 
     @Provides
-    fun provideRegisterUseCase(authRepository: AuthRepository) : RegisterUseCase {
-        return RegisterUseCase(authRepository)
+    fun provideRegisterUseCase(authRepository: AuthRepository, sharedPreferencesHelper: SharedPreferencesHelper) : RegisterUseCase {
+        return RegisterUseCase(authRepository, sharedPreferencesHelper)
     }
 
     @Provides
-    fun provideLoginUseCase(authRepository: AuthRepository) : LoginUseCase {
-        return LoginUseCase(authRepository)
+    fun provideLoginUseCase(authRepository: AuthRepository, sharedPreferencesHelper: SharedPreferencesHelper) : LoginUseCase {
+        return LoginUseCase(authRepository, sharedPreferencesHelper)
     }
 
     @Provides
-    fun provideLogoutUseCase(authRepository: AuthRepository) : LogoutUseCase {
-        return LogoutUseCase(authRepository)
+    fun provideLogoutUseCase(authRepository: AuthRepository, sharedPreferencesHelper: SharedPreferencesHelper) : LogoutUseCase {
+        return LogoutUseCase(authRepository, sharedPreferencesHelper)
     }
 
     @Provides
-    fun provideRefreshTokenLogoutUseCase(authRepository: AuthRepository) : RefreshTokenUseCase {
-        return RefreshTokenUseCase(authRepository)
+    fun provideRefreshTokenLogoutUseCase(authRepository: AuthRepository, sharedPreferencesHelper: SharedPreferencesHelper) : RefreshTokenUseCase {
+        return RefreshTokenUseCase(authRepository, sharedPreferencesHelper)
     }
 
 }

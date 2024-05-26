@@ -25,14 +25,11 @@ class ProfileViewModel @Inject constructor(
         UiState.Initial)
     val uiStateLogout: StateFlow<UiState<AuthResponse>> get() = _uiStateLogout
 
-    private val token: String = "Bearer ${sharedPreferencesHelper.getAccessToken()}"
-
-
     fun logoutApiCall(){
-        _uiStateLogout.value = UiState.Loading
+            _uiStateLogout.value = UiState.Loading
         viewModelScope.launch {
             try {
-                logoutUseCase.execute(token)
+                logoutUseCase.executeWithToken(params = Unit)
                     .catch {
                         _uiStateLogout.value = it.handleAppError()
                     }.collect{

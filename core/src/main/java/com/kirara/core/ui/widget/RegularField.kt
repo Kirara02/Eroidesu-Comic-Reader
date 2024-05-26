@@ -29,13 +29,14 @@ import com.kirara.core.util.Dimens
 
 @Composable
 fun RegularField(
+    value: String = "",
     hint: String,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Next,
     onTextChange: (String) -> Unit = {},
     keyboardActions: KeyboardActions = KeyboardActions()
 ){
-    var text by remember { mutableStateOf(TextFieldValue()) }
+    var text by remember { mutableStateOf(TextFieldValue(value)) }
 
     Box(
         modifier = Modifier

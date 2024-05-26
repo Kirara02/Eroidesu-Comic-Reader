@@ -10,9 +10,12 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navigation
 import com.kirara.core.R
 import com.kirara.core.ui.template.MainTemplate
 import com.kirara.core.util.Graph
+import com.kirara.features.change_password.ChangePasswordScreen
+import com.kirara.features.edit_profile.EditProfileScreen
 import com.kirara.features.home.HomeScreen
 import com.kirara.features.navigation.GeneralScreen
 import com.kirara.features.navigation.auth.AuthScreenRoute
@@ -58,13 +61,25 @@ fun MainNavGraph(
                 navigateToEditProfile = {
                     navController.navigate(GeneralScreen.EditProfile.route)
                 },
+                navigateToChangePassword  = {
+                    navController.navigate(GeneralScreen.ChangePassword.route)
+                },
                 onUserLogout =  onUserLogout
             )
         }
         composable(GeneralScreen.EditProfile.route) {
-            MainTemplate {
-                androidx.compose.material3.Text("Edit Profile")
-            }
+            EditProfileScreen(
+                navigateBack = {
+                    navController.navigateUp()
+                },
+            )
+        }
+        composable(GeneralScreen.ChangePassword.route) {
+            ChangePasswordScreen(
+                navigateBack = {
+                    navController.navigateUp()
+                }
+            )
         }
     }
 }

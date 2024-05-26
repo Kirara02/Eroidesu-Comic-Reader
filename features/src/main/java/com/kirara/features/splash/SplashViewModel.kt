@@ -41,16 +41,15 @@ class SplashViewModel @Inject constructor(
 
     private fun checkTokenAndLogin() {
         viewModelScope.launch {
-            val token = "Bearer ${sharedPreferencesHelper.getAccessToken()}"
+            val token = sharedPreferencesHelper.getAccessToken()
             if (token.isNullOrEmpty()) {
                 _isUserLoggedIn.value = false
             } else {
                 try {
                     _uiStateUser.value = UiState.Loading
-                    getUserUseCase.execute(token)
+                    getUserUseCase.executeWithToken(Unit)
                         .catch { e ->
                             if (e is HttpException && e.code() == 401) {
-                                // Token expired, try refreshing
                                 refreshAccessToken()
                             } else {
                                 _isUserLoggedIn.value = false

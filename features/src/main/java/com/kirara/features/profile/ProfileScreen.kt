@@ -28,11 +28,12 @@ import com.kirara.features.register.RegisterViewModel
 fun ProfileScreen(
     viewModel: ProfileViewModel = hiltViewModel(),
     navigateToEditProfile: () -> Unit,
+    navigateToChangePassword: () -> Unit,
     onUserLogout: () -> Unit,
 ) {
     val uiStateLogout by viewModel.uiStateLogout.collectAsState()
     MainTemplate {
-        ProfileContent(navigateToEditProfile = navigateToEditProfile, viewModel = viewModel)
+        ProfileContent(navigateToEditProfile = navigateToEditProfile,navigateToChangePassword = navigateToChangePassword, viewModel = viewModel)
         HandleUiState(uiStateLogout = uiStateLogout, onUserLogout = onUserLogout, viewModel = viewModel)
     }
 }

@@ -11,4 +11,5 @@ sealed class GeneralScreen(val route: String){
     object SearchManga : GeneralScreen(route = "home/search")
 
     object EditProfile : GeneralScreen(route = "profile/edit")
+    object ChangePassword : GeneralScreen(route = "profile/change-password")
 }

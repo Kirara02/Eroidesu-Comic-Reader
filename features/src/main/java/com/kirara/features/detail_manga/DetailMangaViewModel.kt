@@ -24,10 +24,10 @@ class DetailMangaViewModel @Inject constructor(
 
 
     fun getMangaByIdApiCall(id: Int){
-    val getManga: GetMangaByIdRequest = GetMangaByIdRequest(token = "", id = id)
+    val getManga: GetMangaByIdRequest = GetMangaByIdRequest(id = id)
         viewModelScope.launch {
             try {
-                getMangaByIdUseCase.execute(getManga).catch {
+                getMangaByIdUseCase.executeWithToken(getManga).catch {
                     _uiStateManga.value = UiState.Error(it.message.toString())
                 }.collect { manga ->
                     _uiStateManga.value = UiState.Success(manga)

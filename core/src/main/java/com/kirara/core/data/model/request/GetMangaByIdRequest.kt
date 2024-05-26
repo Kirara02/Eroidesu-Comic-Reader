@@ -4,6 +4,5 @@ import retrofit2.http.Header
 import retrofit2.http.Path
 
 data class GetMangaByIdRequest(
-    @Header("Authorization") val token: String,
     @Path("id") val id: Int
 )

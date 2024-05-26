@@ -21,8 +21,8 @@ class MangaRepositoryImpl @Inject constructor(
         return flowOf(apiService.getPopularMangas(token))
     }
 
-    override suspend fun getMangaByIdApiCall(request: GetMangaByIdRequest): Flow<BaseResponse<Manga>> {
-        return flowOf(apiService.getMangaById(request))
+    override suspend fun getMangaByIdApiCall( token: String, request: GetMangaByIdRequest): Flow<BaseResponse<Manga>> {
+        return flowOf(apiService.getMangaById(token, request))
     }
 
 
