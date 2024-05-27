@@ -36,8 +36,12 @@ class HomeViewModel @Inject constructor(
     private val _name = MutableStateFlow<String>("")
     val name: StateFlow<String> get() = _name
 
+    private val _profileUrl = MutableStateFlow<String?>("")
+    val profileUrl: StateFlow<String?> get() = _profileUrl
+
     init {
         _name.value = sharedPreferencesHelper.getName() ?: "Guest"
+        _profileUrl.value = sharedPreferencesHelper.getProfileUrl() ?: null
         refresh()
     }
 

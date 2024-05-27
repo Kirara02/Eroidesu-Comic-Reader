@@ -31,7 +31,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,10 +41,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.SubcomposeAsyncImage
+import coil.request.ImageRequest
 import com.kirara.core.R
 import com.kirara.core.data.UiState
 import com.kirara.core.data.model.response.MangaResponse
 import com.kirara.core.util.Dimens
+import com.kirara.core.util.UrlHelper
 import com.kirara.features.components.MangaCard
 import com.kirara.features.components.MangaHorizontalCard
 import com.kirara.features.home.HomeViewModel
@@ -62,6 +67,15 @@ fun HomeContent(
     val pullRefreshState = rememberPullRefreshState(isRefreshing, { viewModel.refresh() })
 
     val name by viewModel.name.collectAsState()
+    val profileUrl by viewModel.profileUrl.collectAsState()
+
+    val imageUrl = remember(profileUrl) {
+        when {
+            profileUrl != null -> UrlHelper.formatProfileUrl(profileUrl ?: "")
+            else -> "https://ui-avatars.com/api/?name=$name"
+        }
+    }
+
 
     Box(
         modifier = modifier.fillMaxWidth()
@@ -84,8 +98,17 @@ fun HomeContent(
                     modifier = Modifier.size(58.dp),
                     shape = CircleShape,
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.noir),
+                    SubcomposeAsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(imageUrl)
+                            .crossfade(true)
+                            .build(),
+                        loading = {
+                            CircularProgressIndicator(
+                                color = Color.LightGray,
+                                modifier = Modifier.padding(48.dp)
+                            )
+                        },
                         contentDescription = stringResource(R.string.profile),
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()

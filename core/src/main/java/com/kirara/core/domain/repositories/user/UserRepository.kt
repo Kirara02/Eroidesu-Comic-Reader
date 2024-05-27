@@ -9,6 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
     suspend fun getUser(token: String) : Flow<BaseResponse<User>>
-    suspend fun updateUser(token: String, request: UpdateUserRequest) : Flow<BaseResponse<User>>
+    suspend fun updateUser(token: String, name: String, email: String, profilePicture: String?): Flow<BaseResponse<User>>
     suspend fun changePassword(token: String, request: ChangePasswordRequest) : Flow<DefaultResponse>
 }

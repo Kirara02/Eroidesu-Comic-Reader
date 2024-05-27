@@ -1,7 +1,6 @@
 package com.kirara.features.profile.section
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,24 +16,30 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Logout
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.SubcomposeAsyncImage
+import coil.request.ImageRequest
 import com.kirara.core.R
 import com.kirara.core.util.Dimens
+import com.kirara.core.util.UrlHelper
 import com.kirara.features.components.ConfirmationDialog
 import com.kirara.features.components.ProfileItem
 import com.kirara.features.profile.ProfileViewModel
@@ -46,7 +51,13 @@ fun ProfileContent(
     navigateToChangePassword: () -> Unit,
     viewModel: ProfileViewModel,
 ){
+    val name: String? by viewModel.name.collectAsState()
+    val email: String? by viewModel.email.collectAsState()
+    val profileUrl: String? by viewModel.profileUrl.collectAsState()
+
     val showDialog = remember { mutableStateOf(false) }
+
+    Log.d("",UrlHelper.formatProfileUrl(profileUrl ?: ""))
 
     Box(
         modifier = modifier
@@ -66,11 +77,20 @@ fun ProfileContent(
                     modifier = Modifier.size(58.dp),
                     shape = CircleShape,
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.noir),
-                        contentDescription = stringResource(R.string.profile),
+                    SubcomposeAsyncImage(
+                        loading = {
+                            CircularProgressIndicator(
+                                color = Color.LightGray,
+                                modifier = Modifier.padding(48.dp)
+                            )
+                        },
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(UrlHelper.formatProfileUrl(profileUrl ?: "") ?: "https://ui-avatars.com/api/?name=$name")
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.size(80.dp, 80.dp)
                     )
                 }
                 Spacer(modifier = Modifier.width(Dimens.dp20))
@@ -78,13 +98,13 @@ fun ProfileContent(
                     modifier = Modifier.weight(1f)
                 ) {
                     Text(
-                        "Kirara Bernstein",
+                        name ?: "Guest",
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 22.sp
                     )
                     Text(
-                        "kirara@gmail.com",
+                        email ?: "guest@mail.com",
                         color = MaterialTheme.colorScheme.secondary
                     )
                 }

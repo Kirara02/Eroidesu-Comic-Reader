@@ -25,18 +25,19 @@ import com.kirara.features.profile.section.ProfileContent
 @Composable
 fun ChangePasswordScreen(
     navigateBack: () -> Unit,
+    navigateOnSuccess: () -> Unit,
     viewModel: ChangePasswordViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     ChangePasswordContent(viewModel = viewModel, navigateBack = navigateBack)
-    HandleUiState(uiState = uiState, navigateBack = navigateBack, viewModel = viewModel)
+    HandleUiState(uiState = uiState, navigateOnSuccess = navigateOnSuccess, viewModel = viewModel)
 }
 
 @Composable
 fun HandleUiState(
     uiState: UiState<DefaultResponse>,
-    navigateBack: () -> Unit,
+    navigateOnSuccess: () -> Unit,
     viewModel: ChangePasswordViewModel,
 ){
     val context = LocalContext.current
@@ -62,12 +63,14 @@ fun HandleUiState(
             val message = uiState.data.message ?: ""
             context.myToast(message)
             Log.d("Logout", "Navigating to login screen")
-            navigateBack()
+            navigateOnSuccess()
+            viewModel.resetState()
         }
 
 
         is UiState.Error -> {
             context.myToast(uiState.errorMessage)
+            viewModel.resetState()
         }
     }
 }

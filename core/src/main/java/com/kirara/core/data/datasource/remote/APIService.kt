@@ -14,10 +14,14 @@ import com.kirara.core.data.model.response.AuthResponse
 import com.kirara.core.data.model.response.DefaultResponse
 import com.kirara.core.data.model.response.LoginData
 import com.kirara.core.data.model.response.User
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 
 interface APIService {
     @POST("auth/register")
@@ -35,11 +39,14 @@ interface APIService {
     @GET("user")
     suspend fun getUser(@Header("Authorization") token: String) : BaseResponse<User>
 
+    @Multipart
     @POST("user/update")
     suspend fun updateUser(
         @Header("Authorization") token: String,
-        @Body request: UpdateUserRequest
-    ) : BaseResponse<User>
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part profilePicture: MultipartBody.Part?
+    ): BaseResponse<User>
 
     @POST("user/change-password")
     suspend fun changePassword(

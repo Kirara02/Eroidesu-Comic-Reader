@@ -25,6 +25,28 @@ class ProfileViewModel @Inject constructor(
         UiState.Initial)
     val uiStateLogout: StateFlow<UiState<AuthResponse>> get() = _uiStateLogout
 
+    private val _name = MutableStateFlow<String?>(null)
+    val name: StateFlow<String?> get() = _name
+
+    private val _email = MutableStateFlow<String?>(null)
+    val email: StateFlow<String?> get() = _email
+
+    private val _profileUrl = MutableStateFlow<String?>(null)
+    val profileUrl: StateFlow<String?> get() = _profileUrl
+
+
+    init {
+        loadDataFromPreferences()
+    }
+
+    private fun loadDataFromPreferences() {
+        viewModelScope.launch {
+            _name.value = sharedPreferencesHelper.getName()
+            _email.value = sharedPreferencesHelper.getEmail()
+            _profileUrl.value = sharedPreferencesHelper.getProfileUrl()
+        }
+    }
+
     fun logoutApiCall(){
             _uiStateLogout.value = UiState.Loading
         viewModelScope.launch {

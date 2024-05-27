@@ -9,4 +9,6 @@ data class User(
     val name: String,
     @SerializedName("email")
     val email: String,
+    @SerializedName("profile_picture")
+    val profilePicture: String? = null,
 )

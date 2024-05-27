@@ -12,5 +12,7 @@ data class LoginData(
     @SerializedName("name")
     var name: String,
     @SerializedName("email")
-    var email: String
+    var email: String,
+    @SerializedName("profile_picture")
+    var profilePicture: String? = null
 )

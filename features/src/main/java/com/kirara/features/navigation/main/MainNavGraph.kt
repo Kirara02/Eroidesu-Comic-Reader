@@ -72,12 +72,18 @@ fun MainNavGraph(
                 navigateBack = {
                     navController.navigateUp()
                 },
+                navigateOnSuccess = {
+                    navController.navigate(Graph.MAIN)
+                }
             )
         }
         composable(GeneralScreen.ChangePassword.route) {
             ChangePasswordScreen(
                 navigateBack = {
                     navController.navigateUp()
+                },
+                navigateOnSuccess = {
+                    navController.navigate(Graph.MAIN)
                 }
             )
         }

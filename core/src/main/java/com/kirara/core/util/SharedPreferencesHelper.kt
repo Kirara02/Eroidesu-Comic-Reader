@@ -11,6 +11,7 @@ class SharedPreferencesHelper(private val context: Context) {
         private const val KEY_REFRESH_TOKEN = "refresh_token"
         private const val KEY_NAME = "name"
         private const val KEY_EMAIL = "email"
+        private const val KEY_PROFILE_URL = "profile_url"
     }
 
     private fun getPreferences(): SharedPreferences {
@@ -69,12 +70,30 @@ class SharedPreferencesHelper(private val context: Context) {
         return getPreferences().getString(KEY_EMAIL, null)
     }
 
+    fun saveProfileUrl(url: String) {
+        val editor = getPreferences().edit()
+        editor.putString(KEY_PROFILE_URL, url)
+        editor.apply()
+    }
+
+    fun getProfileUrl(): String? {
+        return getPreferences().getString(KEY_PROFILE_URL, null)
+    }
+
+    fun clearProfileUrl() {
+        val editor = getPreferences().edit()
+        editor.remove(KEY_PROFILE_URL)
+        editor.apply()
+    }
+
+
     fun clearUserData() {
         val editor = getPreferences().edit()
         editor.remove(KEY_ACCESS_TOKEN)
         editor.remove(KEY_REFRESH_TOKEN)
         editor.remove(KEY_NAME)
         editor.remove(KEY_EMAIL)
+        editor.remove(KEY_PROFILE_URL)
         editor.apply()
     }
 }

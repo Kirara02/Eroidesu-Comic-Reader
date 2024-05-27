@@ -58,6 +58,13 @@ class SplashViewModel @Inject constructor(
                         }
                         .collect { response ->
                             _uiStateUser.value = UiState.Success(response)
+                            response.data.let { user ->
+                                sharedPreferencesHelper.saveName(user.name)
+                                sharedPreferencesHelper.saveEmail(user.email)
+                                user.profilePicture?.let { profileUrl ->
+                                    sharedPreferencesHelper.saveProfileUrl(profileUrl)
+                                }
+                            }
                             _isUserLoggedIn.value = true
                         }
                 }catch (e: Exception){

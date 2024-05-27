@@ -40,6 +40,9 @@ class LoginViewModel @Inject constructor(
                             sharedPreferencesHelper.saveRefreshToken(user.refreshToken)
                             sharedPreferencesHelper.saveName(user.name)
                             sharedPreferencesHelper.saveEmail(user.email)
+                            user.profilePicture?.let { profileUrl ->
+                                sharedPreferencesHelper.saveProfileUrl(profileUrl)
+                            }
                         }
                     }
             } catch (e: Exception){

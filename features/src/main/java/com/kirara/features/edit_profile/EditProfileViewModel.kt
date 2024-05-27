@@ -35,6 +35,8 @@ class EditProfileViewModel @Inject constructor(
     private val _email = MutableStateFlow<String?>(null)
     val email: StateFlow<String?> get() = _email
 
+    private val _profileUrl = MutableStateFlow<String?>(null)
+    val profileUrl: StateFlow<String?> get() = _profileUrl
 
     init {
         loadDataFromPreferences()
@@ -44,6 +46,7 @@ class EditProfileViewModel @Inject constructor(
         viewModelScope.launch {
             _name.value = sharedPreferencesHelper.getName()
             _email.value = sharedPreferencesHelper.getEmail()
+            _profileUrl.value = sharedPreferencesHelper.getProfileUrl()
         }
     }
 
@@ -60,6 +63,9 @@ class EditProfileViewModel @Inject constructor(
                         it.data.let { user ->
                             sharedPreferencesHelper.saveName(user.name)
                             sharedPreferencesHelper.saveEmail(user.email)
+                            user.profilePicture?.let {profileUrl ->
+                                sharedPreferencesHelper.saveProfileUrl(profileUrl)
+                            }
                         }
                     }
             } catch (e: Exception){
@@ -69,4 +75,7 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
+    fun resetState() {
+        _uiStateUpdate.value = UiState.Initial
+    }
 }

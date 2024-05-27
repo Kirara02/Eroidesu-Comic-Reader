@@ -17,6 +17,11 @@ class UpdateUserUseCase @Inject constructor(
         params: UpdateUserRequest,
         token: String?
     ): Flow<BaseResponse<User>> {
-        return userRepository.updateUser(token ?: "", params)
+        return userRepository.updateUser(
+            token ?: "",
+            params.name ?: "",
+            params.email ?: "",
+            params.profilePicturePath
+        )
     }
 }

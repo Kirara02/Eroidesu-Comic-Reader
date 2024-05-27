@@ -42,4 +42,8 @@ class ChangePasswordViewModel @Inject constructor(
             }
         }
     }
+
+    fun resetState() {
+        _uiState.value = UiState.Initial
+    }
 }

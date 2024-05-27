@@ -23,19 +23,20 @@ import com.kirara.features.login.LoginViewModel
 @Composable
 fun EditProfileScreen(
     navigateBack: () -> Unit,
+    navigateOnSuccess: () -> Unit,
     viewModel: EditProfileViewModel = hiltViewModel()
 ){
     val uiStateUpdate by viewModel.uiStateUpdate.collectAsState()
 
     EditProfileContent(viewModel = viewModel, navigateBack = navigateBack)
-    HandleUiState(uiStateUpdate = uiStateUpdate, navigateBack = navigateBack, viewModel = viewModel)
+    HandleUiState(uiStateUpdate = uiStateUpdate, navigateOnSuccess = navigateOnSuccess, viewModel = viewModel)
 }
 
 
 @Composable
 fun HandleUiState(
     uiStateUpdate: UiState<BaseResponse<User>>,
-    navigateBack: () -> Unit,
+    navigateOnSuccess: () -> Unit,
     viewModel: EditProfileViewModel,
 ){
     val context = LocalContext.current
@@ -60,11 +61,13 @@ fun HandleUiState(
         is UiState.Success -> {
             val message = uiStateUpdate.data.message ?: ""
             context.myToast(message)
-            navigateBack()
+            navigateOnSuccess()
+            viewModel.resetState()
         }
 
         is UiState.Error -> {
             context.myToast(uiStateUpdate.errorMessage)
+            viewModel.resetState()
         }
     }
 }
