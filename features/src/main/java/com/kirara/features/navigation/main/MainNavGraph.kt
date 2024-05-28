@@ -8,13 +8,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.kirara.core.R
 import com.kirara.core.ui.template.MainTemplate
 import com.kirara.core.util.Graph
 import com.kirara.features.change_password.ChangePasswordScreen
+import com.kirara.features.detail_manga.DetailMangaScreen
 import com.kirara.features.edit_profile.EditProfileScreen
 import com.kirara.features.home.HomeScreen
 import com.kirara.features.navigation.GeneralScreen
@@ -55,6 +58,18 @@ fun MainNavGraph(
                     color = MaterialTheme.colorScheme.primary
                 )
             }
+        }
+        composable(
+            GeneralScreen.DetailManga.route,
+            arguments = listOf(navArgument("mangaId") { type = NavType.IntType }),
+        ){
+            val id = it.arguments?.getInt("mangaId") ?: -1
+            DetailMangaScreen(
+                mangaId = id,
+                navigateBack = {
+                    navController.navigateUp()
+                },
+            )
         }
         composable(BottomBarScreen.Profile.route) {
             ProfileScreen(

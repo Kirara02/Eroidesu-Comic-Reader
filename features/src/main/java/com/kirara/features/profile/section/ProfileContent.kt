@@ -14,8 +14,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Lock
-import androidx.compose.material.icons.rounded.Logout
+import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.Logout
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -57,7 +57,12 @@ fun ProfileContent(
 
     val showDialog = remember { mutableStateOf(false) }
 
-    Log.d("",UrlHelper.formatProfileUrl(profileUrl ?: ""))
+    val imageUrl = remember(profileUrl) {
+        when {
+            profileUrl != null -> UrlHelper.formatProfileUrl(profileUrl ?: "")
+            else -> "https://ui-avatars.com/api/?name=$name"
+        }
+    }
 
     Box(
         modifier = modifier
@@ -85,7 +90,7 @@ fun ProfileContent(
                             )
                         },
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data(UrlHelper.formatProfileUrl(profileUrl ?: "") ?: "https://ui-avatars.com/api/?name=$name")
+                            .data(imageUrl)
                             .crossfade(true)
                             .build(),
                         contentDescription = null,
@@ -116,12 +121,12 @@ fun ProfileContent(
                 onClickAction = { navigateToEditProfile() }
             )
             ProfileItem(
-                icon = Icons.Rounded.Lock,
+                icon = Icons.Outlined.Lock,
                 title = "Change Password",
                 onClickAction = { navigateToChangePassword() }
             )
             ProfileItem(
-                icon = Icons.Rounded.Logout,
+                icon = Icons.Outlined.Logout,
                 title = "Logout",
                 onClickAction = {
                     showDialog.value = true

@@ -23,4 +23,6 @@ data class Manga(
     val status: String? = null,
     @SerializedName("rilis")
     val rilis: String? = null,
+    @SerializedName("total_chapter")
+    val totalChapter: Int? = null
 )

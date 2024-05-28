@@ -123,7 +123,7 @@ fun HomeContent(
                         color = MaterialTheme.colorScheme.secondary
                     )
                     Text(
-                        name,
+                        name ?: "Guest",
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 22.sp

@@ -11,6 +11,7 @@ import com.kirara.core.data.model.request.RegisterRequest
 import com.kirara.core.data.model.request.UpdateUserRequest
 import com.kirara.core.data.model.response.BaseResponse
 import com.kirara.core.data.model.response.AuthResponse
+import com.kirara.core.data.model.response.Chapter
 import com.kirara.core.data.model.response.DefaultResponse
 import com.kirara.core.data.model.response.LoginData
 import com.kirara.core.data.model.response.User
@@ -22,6 +23,7 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
 
 interface APIService {
     @POST("auth/register")
@@ -67,7 +69,20 @@ interface APIService {
     @GET("manga/{id}")
     suspend fun getMangaById(
         @Header("Authorization") token: String,
-        @Body request: GetMangaByIdRequest
+        @Path("id") id: Int
     ): BaseResponse<Manga>
+
+    @GET("manga/title/{name}")
+    suspend fun getMangaByName(
+        @Header("Authorization") token: String,
+        @Path("name") name: String
+    ): BaseResponse<Manga>
+
+    @GET("manga/{id}/chapter")
+    suspend fun getMangaListChapters(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ) : BaseResponse<List<Chapter>>
+
 
 }

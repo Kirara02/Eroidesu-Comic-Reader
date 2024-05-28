@@ -4,8 +4,8 @@ sealed class GeneralScreen(val route: String){
 
     object Splash : GeneralScreen(route = "splash")
 
-    object DetailManga : GeneralScreen(route = "home/{mangaId}"){
-        fun createRoute(productId: Int) = "home/$productId"
+    object DetailManga : GeneralScreen(route = "manga/{mangaId}"){
+        fun createRoute(mangaId: Int) = "manga/$mangaId"
     }
 
     object SearchManga : GeneralScreen(route = "home/search")
