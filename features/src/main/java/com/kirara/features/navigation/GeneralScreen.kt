@@ -8,6 +8,10 @@ sealed class GeneralScreen(val route: String){
         fun createRoute(mangaId: Int) = "manga/$mangaId"
     }
 
+    object DetailChapter : GeneralScreen(route = "chapter/{chapterId}"){
+        fun createRoute(chapterId: Int) = "chapter/$chapterId"
+    }
+
     object SearchManga : GeneralScreen(route = "home/search")
 
     object EditProfile : GeneralScreen(route = "profile/edit")

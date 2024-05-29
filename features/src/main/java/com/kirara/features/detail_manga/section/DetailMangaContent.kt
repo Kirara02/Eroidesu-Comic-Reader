@@ -43,7 +43,8 @@ import com.kirara.features.detail_manga.DetailMangaViewModel
 fun DetailMangaContent(
     mangaId: Int,
     viewModel: DetailMangaViewModel,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
+    navigateToChapter: (Int) -> Unit
 ) {
     val uiStateManga by remember { viewModel.uiStateManga }.collectAsState()
     Scaffold(
@@ -51,6 +52,7 @@ fun DetailMangaContent(
         bottomBar = {
             Surface(
                 shadowElevation = 10.dp,
+                shape =  RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
             ) {
                 Row(
                     Modifier
@@ -92,14 +94,14 @@ fun DetailMangaContent(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .fillMaxSize()
                     .padding(it)
             ){
                 HandleUiState(
                     mangaId = mangaId,
                     uiStateManga = uiStateManga,
                     viewModel = viewModel,
-                    navigateBack = navigateBack
+                    navigateBack = navigateBack,
+                    navigateToChapter = navigateToChapter
                 )
             }
         }
@@ -111,14 +113,10 @@ fun HandleUiState(
     mangaId: Int,
     uiStateManga: UiState<BaseResponse<Manga>>,
     viewModel: DetailMangaViewModel,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
+    navigateToChapter: (Int) -> Unit
 ) {
     val configuration = LocalConfiguration.current
-
-    val screenHeight = configuration.screenHeightDp.dp
-    val screenWidth = configuration.screenWidthDp.dp
-
-
 
 
     when(uiStateManga) {
@@ -151,7 +149,7 @@ fun HandleUiState(
                 )
                 DetailMangaTitle(manga = manga)
                 DetailMangaSynopsis(desc = manga.sinopsis ?: "")
-                DetailMangaListChapter(viewModel = viewModel, mangaId = mangaId)
+                DetailMangaListChapter(viewModel = viewModel, mangaId = mangaId, navigateToChapter = navigateToChapter)
                 Spacer(modifier = Modifier.height(12.dp))
             }
         }

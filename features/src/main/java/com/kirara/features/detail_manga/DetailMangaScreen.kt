@@ -16,11 +16,13 @@ import com.kirara.features.detail_manga.section.DetailMangaContent
 fun DetailMangaScreen(
     mangaId: Int,
     viewModel: DetailMangaViewModel = hiltViewModel(),
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
+    navigateToChapter: (Int) -> Unit
 ) {
     DetailMangaContent(
         mangaId = mangaId,
         viewModel = viewModel,
-        navigateBack = navigateBack
+        navigateBack = navigateBack,
+        navigateToChapter = navigateToChapter
     )
 }

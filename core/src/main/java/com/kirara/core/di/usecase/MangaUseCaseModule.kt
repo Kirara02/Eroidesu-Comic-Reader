@@ -3,6 +3,7 @@ package com.kirara.core.di.usecase
 import com.kirara.core.domain.repositories.manga.MangaRepository
 import com.kirara.core.domain.usecase.manga.GetMangaByIdUseCase
 import com.kirara.core.domain.usecase.manga.GetMangaByNameUseCase
+import com.kirara.core.domain.usecase.manga.GetMangaChapterByIdUseCase
 import com.kirara.core.domain.usecase.manga.GetMangaListChaptersUseCase
 import com.kirara.core.domain.usecase.manga.GetMangasUseCase
 import com.kirara.core.domain.usecase.manga.GetPopularMangasUseCase
@@ -39,5 +40,9 @@ object MangaUseCaseModule {
     @Provides
     fun provideGetMangaListChaptersUseCase(mangaRepository: MangaRepository, sharedPreferencesHelper: SharedPreferencesHelper) : GetMangaListChaptersUseCase {
         return GetMangaListChaptersUseCase(mangaRepository, sharedPreferencesHelper)
+    }
+
+    fun provideGetMangaChapterImageUseCase(mangaRepository: MangaRepository, sharedPreferencesHelper: SharedPreferencesHelper) : GetMangaChapterByIdUseCase {
+        return GetMangaChapterByIdUseCase(mangaRepository, sharedPreferencesHelper)
     }
 }

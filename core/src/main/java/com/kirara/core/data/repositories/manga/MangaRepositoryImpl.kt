@@ -4,6 +4,7 @@ import com.kirara.core.data.datasource.remote.APIService
 import com.kirara.core.data.model.request.GetMangaByIdRequest
 import com.kirara.core.data.model.response.BaseResponse
 import com.kirara.core.data.model.response.Chapter
+import com.kirara.core.data.model.response.ChapterImage
 import com.kirara.core.data.model.response.Manga
 import com.kirara.core.data.model.response.MangaResponse
 import com.kirara.core.domain.repositories.manga.MangaRepository
@@ -35,6 +36,13 @@ class MangaRepositoryImpl @Inject constructor(
 
     override suspend fun getMangaListChapters(token: String, id: Int): Flow<BaseResponse<List<Chapter>>> {
         return flowOf(apiService.getMangaListChapters(token, id))
+    }
+
+    override suspend fun getMangaChapterById(
+        token: String,
+        id: Int
+    ): Flow<BaseResponse<List<ChapterImage>>> {
+        return flowOf(apiService.getMangaChapterById(token, id))
     }
 
 }

@@ -25,13 +25,13 @@ import androidx.compose.ui.unit.dp
 import com.kirara.core.data.model.response.Chapter
 
 @Composable
-fun ChapterCard(chapter: Chapter) {
-    Box(
-//        modifier = Modifier.padding(bottom = 12.dp)
-    ) {
+fun ChapterCard(
+    modifier: Modifier,
+    chapter: Chapter
+) {
+    Box {
         Box(
-            modifier = Modifier
-//                .clip(RoundedCornerShape(8.dp))
+            modifier = modifier
                 .background(Color.White.copy(alpha = 0.7f))
         ) {
             Column {

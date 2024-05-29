@@ -1,6 +1,7 @@
 package com.kirara.features.detail_manga.section
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,6 +31,7 @@ import com.kirara.features.detail_manga.DetailMangaViewModel
 fun DetailMangaListChapter(
     mangaId: Int,
     viewModel: DetailMangaViewModel,
+    navigateToChapter: (Int) -> Unit
 ) {
     val uiStateChapter by remember { viewModel.uiStateChapter }.collectAsState()
 
@@ -38,7 +40,7 @@ fun DetailMangaListChapter(
             .fillMaxWidth()
             .padding(top = 20.dp, start = 20.dp, end = 20.dp),
     ) {
-        HandleUiState(uiStateChapter = uiStateChapter, viewModel = viewModel, mangaId= mangaId)
+        HandleUiState(uiStateChapter = uiStateChapter, viewModel = viewModel, mangaId= mangaId, navigateToChapter = navigateToChapter)
     }
 }
 
@@ -46,7 +48,8 @@ fun DetailMangaListChapter(
 fun HandleUiState(
     uiStateChapter: UiState<BaseResponse<List<Chapter>>>,
     viewModel: DetailMangaViewModel,
-    mangaId: Int
+    mangaId: Int,
+    navigateToChapter: (Int) -> Unit
 ) {
 
     when(uiStateChapter){
@@ -74,7 +77,12 @@ fun HandleUiState(
                         .height(350.dp)
                 ){
                     items(it){item ->
-                        ChapterCard(chapter = item)
+                        ChapterCard(
+                            chapter = item,
+                            modifier = Modifier.clickable {
+                                navigateToChapter(item.id ?: return@clickable)
+                            }
+                        )
                     }
                 }
             }

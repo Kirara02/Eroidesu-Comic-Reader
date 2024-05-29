@@ -12,6 +12,7 @@ import com.kirara.core.data.model.request.UpdateUserRequest
 import com.kirara.core.data.model.response.BaseResponse
 import com.kirara.core.data.model.response.AuthResponse
 import com.kirara.core.data.model.response.Chapter
+import com.kirara.core.data.model.response.ChapterImage
 import com.kirara.core.data.model.response.DefaultResponse
 import com.kirara.core.data.model.response.LoginData
 import com.kirara.core.data.model.response.User
@@ -84,5 +85,10 @@ interface APIService {
         @Path("id") id: Int
     ) : BaseResponse<List<Chapter>>
 
+    @GET("chapter/{id}")
+    suspend fun getMangaChapterById(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ) : BaseResponse<List<ChapterImage>>
 
 }
