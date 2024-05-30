@@ -1,5 +1,6 @@
 package com.kirara.core.di.usecase
 
+import com.kirara.core.domain.repositories.manga.DbMangaRepository
 import com.kirara.core.domain.repositories.manga.MangaRepository
 import com.kirara.core.domain.usecase.manga.GetMangaByIdUseCase
 import com.kirara.core.domain.usecase.manga.GetMangaByNameUseCase
@@ -7,6 +8,10 @@ import com.kirara.core.domain.usecase.manga.GetMangaChapterByIdUseCase
 import com.kirara.core.domain.usecase.manga.GetMangaListChaptersUseCase
 import com.kirara.core.domain.usecase.manga.GetMangasUseCase
 import com.kirara.core.domain.usecase.manga.GetPopularMangasUseCase
+import com.kirara.core.domain.usecase.manga.db.DeleteMangaDbUseCase
+import com.kirara.core.domain.usecase.manga.db.GetMangaByIdDbUseCase
+import com.kirara.core.domain.usecase.manga.db.GetMangaDbUseCase
+import com.kirara.core.domain.usecase.manga.db.InsertMangaDbUseCase
 import com.kirara.core.util.SharedPreferencesHelper
 import dagger.Module
 import dagger.Provides
@@ -42,7 +47,29 @@ object MangaUseCaseModule {
         return GetMangaListChaptersUseCase(mangaRepository, sharedPreferencesHelper)
     }
 
-    fun provideGetMangaChapterImageUseCase(mangaRepository: MangaRepository, sharedPreferencesHelper: SharedPreferencesHelper) : GetMangaChapterByIdUseCase {
+    @Provides
+    fun provideGetMangaChapterByIdUseCase(mangaRepository: MangaRepository, sharedPreferencesHelper: SharedPreferencesHelper) : GetMangaChapterByIdUseCase {
         return GetMangaChapterByIdUseCase(mangaRepository, sharedPreferencesHelper)
     }
+
+    @Provides
+    fun provideGetMangasDbUseCase(dbMangaRepository: DbMangaRepository, sharedPreferencesHelper: SharedPreferencesHelper) : GetMangaDbUseCase {
+        return GetMangaDbUseCase(dbMangaRepository, sharedPreferencesHelper)
+    }
+
+    @Provides
+    fun provideGetMangaByIdDbUseCase(dbMangaRepository: DbMangaRepository, sharedPreferencesHelper: SharedPreferencesHelper) : GetMangaByIdDbUseCase {
+        return GetMangaByIdDbUseCase(dbMangaRepository, sharedPreferencesHelper)
+    }
+
+    @Provides
+    fun provideInsertMangaDbUseCase(dbMangaRepository: DbMangaRepository, sharedPreferencesHelper: SharedPreferencesHelper) : InsertMangaDbUseCase {
+        return InsertMangaDbUseCase(dbMangaRepository, sharedPreferencesHelper)
+    }
+
+    @Provides
+    fun provideDeleteMangaDbUseCase(dbMangaRepository: DbMangaRepository, sharedPreferencesHelper: SharedPreferencesHelper) : DeleteMangaDbUseCase {
+        return DeleteMangaDbUseCase(dbMangaRepository, sharedPreferencesHelper)
+    }
+
 }
