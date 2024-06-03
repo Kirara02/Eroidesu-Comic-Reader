@@ -2,7 +2,9 @@ package com.kirara.core.data.datasource.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
+import com.kirara.core.util.Converters
 
 @Entity(tableName = "table_manga", primaryKeys = ["id"])
 data class MangaEntity(
@@ -16,6 +18,7 @@ data class MangaEntity(
     val thumbnail: String? = null,
 
     @ColumnInfo(name = "genre")
+    @TypeConverters(Converters::class)
     val genre: List<String?>? = null,
 
     @ColumnInfo(name = "type")

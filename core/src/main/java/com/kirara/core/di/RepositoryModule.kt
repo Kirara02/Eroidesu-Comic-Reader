@@ -1,10 +1,13 @@
 package com.kirara.core.di
 
+import com.kirara.core.data.datasource.local.AppDatabase
 import com.kirara.core.data.datasource.remote.APIService
 import com.kirara.core.data.repositories.auth.AuthRepositoryImpl
+import com.kirara.core.data.repositories.manga.DbMangaRepositoryImpl
 import com.kirara.core.data.repositories.manga.MangaRepositoryImpl
 import com.kirara.core.data.repositories.user.UserRepositoryImpl
 import com.kirara.core.domain.repositories.auth.AuthRepository
+import com.kirara.core.domain.repositories.manga.DbMangaRepository
 import com.kirara.core.domain.repositories.manga.MangaRepository
 import com.kirara.core.domain.repositories.user.UserRepository
 import dagger.Module
@@ -27,6 +30,12 @@ object RepositoryModule {
     @Singleton
     fun provideAuthRepository(apiService: APIService) : AuthRepository {
         return AuthRepositoryImpl(apiService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMangaDbRepository(db: AppDatabase) : DbMangaRepository {
+        return DbMangaRepositoryImpl(db)
     }
 
     @Provides
