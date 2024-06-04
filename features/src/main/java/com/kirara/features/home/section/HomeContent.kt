@@ -78,7 +78,8 @@ fun HomeContent(
 
 
     Box(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier.fillMaxSize()
+            .pullRefresh(pullRefreshState)
     ) {
         Column(
             modifier = Modifier

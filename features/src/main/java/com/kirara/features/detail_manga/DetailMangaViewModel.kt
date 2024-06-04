@@ -50,7 +50,6 @@ class DetailMangaViewModel @Inject constructor(
                     _uiStateManga.value = UiState.Error(it.message.toString())
                 }.collect { manga ->
                     getMangaByIdDbCall(manga.data.id ?: 0)
-
                     _uiStateManga.value = UiState.Success(manga)
                 }
             }catch (e: Exception){
@@ -59,6 +58,7 @@ class DetailMangaViewModel @Inject constructor(
             }
         }
     }
+
 
 
     fun getMangaListChaptersApiCall(id: Int){
@@ -80,14 +80,15 @@ class DetailMangaViewModel @Inject constructor(
             try {
                 getMangaByIdDbUseCase.execute(id.toLong()).catch {
                     _uiStateMangaEntity.value = UiState.Error(it.message.toString())
+                    Log.e("ERROR", "getMangaByIdDbCall: ${it.message}", )
+                    _hasSavedManga.value = false
                 }.collect {
-                    it.let {
-                        Log.d("TAG", "getMangaByIdDbCall: ${it.name}")
-                    }
+                    Log.d("SUCCESS", "getMangaByIdDbCall: ${it.name}", )
                     _hasSavedManga.value = true
                 }
             } catch (e: Exception) {
                 _hasSavedManga.value = false
+                Log.e("ERROR", "getMangaByIdDbCall: ${e.message}", )
                 _uiStateMangaEntity.value = UiState.Error(e.message.toString())
             }
         }
@@ -98,7 +99,7 @@ class DetailMangaViewModel @Inject constructor(
         viewModelScope.launch {
             val longInsertStatus = insertMangaDbUseCase.execute(MangaMapper.mapFromProductToEntity(manga))
             if(longInsertStatus > 0){
-                _hasSavedManga.value = true  // Update hasSavedManga
+                _hasSavedManga.value = true
                 manga.id?.let { getMangaByIdDbCall(it) }
             }
         }
@@ -109,6 +110,7 @@ class DetailMangaViewModel @Inject constructor(
         viewModelScope.launch {
             val intDeleteStatus = deleteMangaDbUseCase.execute(MangaMapper.mapFromProductToEntity(manga))
             if(intDeleteStatus > 0){
+                _hasSavedManga.value = false
                 manga.id?.let { getMangaByIdDbCall(it) }
             }
         }

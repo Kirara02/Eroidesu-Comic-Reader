@@ -13,6 +13,7 @@ import androidx.navigation.navArgument
 import com.kirara.core.R
 import com.kirara.core.ui.template.MainTemplate
 import com.kirara.core.util.Graph
+import com.kirara.features.bookmark.BookmarkScreen
 import com.kirara.features.change_password.ChangePasswordScreen
 import com.kirara.features.detail_manga.DetailMangaScreen
 import com.kirara.features.edit_profile.EditProfileScreen
@@ -49,12 +50,11 @@ fun MainNavGraph(
             }
         }
         composable(BottomBarScreen.BookMark.route) {
-            MainTemplate {
-                Text(
-                    text = stringResource(id = R.string.bookmark),
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
+            BookmarkScreen(
+                navigateToDetail = {mangaId ->
+                    navController.navigate(GeneralScreen.DetailManga.createRoute(mangaId))
+                }
+            )
         }
         composable(
             GeneralScreen.DetailManga.route,

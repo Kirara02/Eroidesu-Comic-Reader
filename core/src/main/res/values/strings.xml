@@ -5,6 +5,7 @@
     <string name="profile">Profile</string>
     <string name="manga">Manga</string>
     <string name="no_manga">No Manga List</string>
+    <string name="empty_manga">Manga is Empty</string>
     <string name="load_manga">Load Manga…</string>
     <string name="error_manga">Can\'t load manga, try again.</string>
     <string name="detail_manga">Detail Manga</string>
