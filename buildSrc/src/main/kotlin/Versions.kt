@@ -33,4 +33,6 @@ object Versions {
     const val accompanist_systemuicontroller_version = "0.28.0"
 
     const val realtime_database_version = "20.2.1"
+
+    const val zelory_compressor = "3.0.1"
 }

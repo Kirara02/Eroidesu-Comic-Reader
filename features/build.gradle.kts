@@ -70,4 +70,7 @@ dependencies {
     implementation(MyDependencies.hilt_android)
     kapt(MyDependencies.hilt_android_compiler)
     kapt(MyDependencies.hilt_compose_compiler)
+
+    // Image Compressed
+    implementation(MyDependencies.zelory_compressor)
 }

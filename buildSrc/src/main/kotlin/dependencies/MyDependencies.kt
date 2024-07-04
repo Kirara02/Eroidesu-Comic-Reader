@@ -1,5 +1,7 @@
 package dependencies
 
+import Versions
+
 object MyDependencies {
     // DEFAULT DEPENDENCIES
     const val core_ktx = "androidx.core:core-ktx:${Versions.core_ktx_version}"
@@ -53,4 +55,8 @@ object MyDependencies {
 
     // FIREBASE
     // const val realtime_database = "com.google.firebase:firebase-database-ktx:${Versions.realtime_database_version}"
+
+    // Image Compressed
+    const val zelory_compressor = "id.zelory:compressor:${Versions.zelory_compressor}"
+
 }
